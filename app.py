@@ -2,24 +2,24 @@ import numpy as np
 import cv2
 import streamlit as st
 from tensorflow import keras
-# from keras.models import model_from_json
+from keras.models import model_from_json
 from keras.utils import img_to_array
 from streamlit_webrtc import webrtc_streamer, WebRtcMode
 import av
 
 # load model
-emotion_name = ["Angry", "Disgust", "Fear",
-                "Happy", "Sad", "Surprise", "Neutral"]
-# emotion_dict = {0: 'angry', 1: 'happy', 2: 'neutral', 3: 'sad', 4: 'surprise'}
-# # load json and create model
-# json_file = open('./models/emotion_model1.json', 'r')
-# loaded_model_json = json_file.read()
-# json_file.close()
-# classifier = model_from_json(loaded_model_json)
+# emotion_name = ["Angry", "Disgust", "Fear",
+#                 "Happy", "Sad", "Surprise", "Neutral"]
+emotion_name= {0: 'angry', 1: 'happy', 2: 'neutral', 3: 'sad', 4: 'surprise'}
+# load json and create model
+json_file = open('./models/emotion_model1.json', 'r')
+loaded_model_json = json_file.read()
+json_file.close()
+classifier = model_from_json(loaded_model_json)
 
-# # load weights into new model
-# classifier.load_weights("./models/emotion_model1.h5")
-classifier = keras.models.load_model('./models/emotion_model.h5')
+# load weights into new model   
+classifier.load_weights("./models/emotion_model1.h5")
+# classifier = keras.models.load_model('./models/emotion_model.h5')
 
 #load face
 try:
@@ -54,12 +54,11 @@ def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
 
     return av.VideoFrame.from_ndarray(img, format="bgr24")
 
-
 def main():
     # Face Analysis Application #
     st.title("Real Time Face Emotion Detection Application")
-    activiteis = ["Home", "Webcam Emotion Detection"]
-    choice = st.sidebar.selectbox("Select Activity", activiteis)
+    activities = ["Home", "Webcam Emotion Detection", "Image Emotion Detection"]
+    choice = st.sidebar.selectbox("Select Activity", activities)
     st.sidebar.markdown(
         """ Developed by Aravind S
             2nd Year B.E Computer Science and Engineering (Data Science)
@@ -90,7 +89,11 @@ def main():
             media_stream_constraints={"video": True, "audio": False},
             async_processing=True,
             )
-
+    # elif choice =="Image Emotion Detection":
+    #     st.header("Image Emotion Detection")
+    #     st.write("Upload an image file to predict their emtion.")
+    #     uploaded_image = st.file_uploader('Upload Images', accept_multiple_files=True, type=["png","jpg","jpeg"])
+    #     process_btn = st.button('Process', on_click=image_process)
     else:
         pass
 
