@@ -19,8 +19,8 @@ This project leverages Streamlit to create a user-friendly interface for real-ti
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/real-time-emotion-detection.git
-   cd real-time-emotion-detection```
+   git clone https://github.com/Aravind-SL/Real_Time_Face_Emotion_Detection.git
+   cd Real_Time_Face_Emotion_Detection```
 
 2. **Install dependencies:**
 
